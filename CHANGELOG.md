@@ -1,3 +1,9 @@
+## v0.1.2 (2024-10-05)
+
+### Fix
+
+- **__version__.py**: removed local part from version, added automatic stripping of local path when calculating tuple
+
 ## v0.1.1 (2024-10-05)
 
 ### Fix
