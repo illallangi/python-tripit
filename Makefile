@@ -65,11 +65,11 @@ trips.json: sync
 
 .PHONY: image
 image: sync
-	@podman build --build-arg VERSION=$$(uv run --quiet hatchling version) -t $$DEV_REGISTRY/$(IMAGE_NAME):$$(uv run --quiet hatchling version | sed "s|\+.*||") --format=docker .
+	@podman build -t $$DEV_REGISTRY/$(IMAGE_NAME):$$(uv run --quiet cz version -p | sed "s|\+.*||") --format=docker .
 
 .PHONY: push
 push: image
-	@podman push $$DEV_REGISTRY/$(IMAGE_NAME):$$(uv run --quiet hatchling version | sed "s|\+.*||")
+	@podman push $$DEV_REGISTRY/$(IMAGE_NAME):$$(uv run --quiet cz version -p | sed "s|\+.*||")
 
 # PyPi package build and upload
 
