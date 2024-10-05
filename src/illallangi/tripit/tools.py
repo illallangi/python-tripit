@@ -57,46 +57,6 @@ def cli(
     is_flag=True,
     help="Output as JSON.",
 )
-def trips(
-    ctx,
-    json,
-):
-    trips = ctx.obj.get_trips()
-    if json:
-        click.echo(
-            orjson.dumps(
-                {
-                    "trips": list(trips),
-                },
-                option=orjson.OPT_SORT_KEYS,
-            ),
-        )
-        return
-
-    click.echo(
-        tabulate.tabulate(
-            [
-                (
-                    trip["id"],
-                    trip["display_name"],
-                )
-                for trip in trips
-            ],
-            headers=(
-                "ID",
-                "Name",
-            ),
-        )
-    )
-
-
-@cli.command()
-@click.pass_context
-@click.option(
-    "--json",
-    is_flag=True,
-    help="Output as JSON.",
-)
 def profiles(
     ctx,
     json,
@@ -129,6 +89,46 @@ def profiles(
                 "Name",
                 "Company",
                 "Location",
+            ),
+        )
+    )
+
+
+@cli.command()
+@click.pass_context
+@click.option(
+    "--json",
+    is_flag=True,
+    help="Output as JSON.",
+)
+def trips(
+    ctx,
+    json,
+):
+    trips = ctx.obj.get_trips()
+    if json:
+        click.echo(
+            orjson.dumps(
+                {
+                    "trips": list(trips),
+                },
+                option=orjson.OPT_SORT_KEYS,
+            ),
+        )
+        return
+
+    click.echo(
+        tabulate.tabulate(
+            [
+                (
+                    trip["id"],
+                    trip["display_name"],
+                )
+                for trip in trips
+            ],
+            headers=(
+                "ID",
+                "Name",
             ),
         )
     )

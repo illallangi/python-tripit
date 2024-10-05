@@ -141,6 +141,14 @@ class TripItClient:
                         }
                     )
 
+    def get_profiles(
+        self,
+    ):
+        return self.get_objects(
+            "Profile",
+            self.base_url / "get" / "profile",
+        )
+
     def get_trips(
         self,
     ):
@@ -164,12 +172,4 @@ class TripItClient:
             / "false"
             / "include_objects"
             / "false",
-        )
-
-    def get_profiles(
-        self,
-    ):
-        return self.get_objects(
-            "Profile",
-            self.base_url / "get" / "profile",
         )
