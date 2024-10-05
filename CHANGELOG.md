@@ -1,3 +1,13 @@
+## v0.3.0 (2024-10-05)
+
+### Feat
+
+- **client**: made returned json consistent and promoted first class citizen fields
+
+### Refactor
+
+- **client.py**: split into several mixins
+
 ## v0.2.0 (2024-10-05)
 
 ### Feat
