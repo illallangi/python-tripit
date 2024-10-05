@@ -57,16 +57,16 @@ def cli(
     is_flag=True,
     help="Output as JSON.",
 )
-def trips(
+def flights(
     ctx,
     json,
 ):
-    trips = ctx.obj.get_trips()
+    flights = ctx.obj.get_flights()
     if json:
         click.echo(
             orjson.dumps(
                 {
-                    "trips": list(trips),
+                    "flights": list(flights),
                 },
                 option=orjson.OPT_SORT_KEYS,
             ),
@@ -77,14 +77,18 @@ def trips(
         tabulate.tabulate(
             [
                 (
-                    trip["id"],
-                    trip["display_name"],
+                    flight.get("start_airport_code"),
+                    flight.get("end_airport_code"),
+                    f'{flight["StartDateTime"]["date"]}T{flight["StartDateTime"]["time"]}{flight["StartDateTime"]["utc_offset"]}',
+                    f'{flight["EndDateTime"]["date"]}T{flight["EndDateTime"]["time"]}{flight["EndDateTime"]["utc_offset"]}',
                 )
-                for trip in trips
+                for flight in flights
             ],
             headers=(
-                "ID",
-                "Name",
+                "Origin",
+                "Destination",
+                "Departure",
+                "Arrival",
             ),
         )
     )
@@ -129,6 +133,46 @@ def profiles(
                 "Name",
                 "Company",
                 "Location",
+            ),
+        )
+    )
+
+
+@cli.command()
+@click.pass_context
+@click.option(
+    "--json",
+    is_flag=True,
+    help="Output as JSON.",
+)
+def trips(
+    ctx,
+    json,
+):
+    trips = ctx.obj.get_trips()
+    if json:
+        click.echo(
+            orjson.dumps(
+                {
+                    "trips": list(trips),
+                },
+                option=orjson.OPT_SORT_KEYS,
+            ),
+        )
+        return
+
+    click.echo(
+        tabulate.tabulate(
+            [
+                (
+                    trip["id"],
+                    trip["display_name"],
+                )
+                for trip in trips
+            ],
+            headers=(
+                "ID",
+                "Name",
             ),
         )
     )
