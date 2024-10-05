@@ -39,6 +39,7 @@ tripit-tools = "illallangi.tripit.tools:cli"
 Homepage = "https://github.com/illallangi/python-tripit"
 Repository = "https://github.com/illallangi/python-tripit.git"
 Issues = "https://github.com/illallangi/python-tripit/issues"
+Changelog = "https://github.com/illallangi/python-tripit/blob/master/CHANGELOG.md"
 [build-system]
 requires = [
     "ruff>=0.6.9",
