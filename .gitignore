@@ -9,7 +9,5 @@ wheels/
 # Virtual environments
 .venv
 
-# Versioning
-**/__version__.py
 profiles.json
 trips.json
