@@ -76,20 +76,10 @@ def flights(
     click.echo(
         tabulate.tabulate(
             [
-                (
-                    flight.get("start_airport_code"),
-                    flight.get("end_airport_code"),
-                    f'{flight["StartDateTime"]["date"]}T{flight["StartDateTime"]["time"]}{flight["StartDateTime"]["utc_offset"]}',
-                    f'{flight["EndDateTime"]["date"]}T{flight["EndDateTime"]["time"]}{flight["EndDateTime"]["utc_offset"]}',
-                )
+                {k: v for k, v in flight.items() if not k.startswith("@")}
                 for flight in flights
             ],
-            headers=(
-                "Origin",
-                "Destination",
-                "Departure",
-                "Arrival",
-            ),
+            headers="keys",
         )
     )
 
@@ -120,20 +110,10 @@ def profiles(
     click.echo(
         tabulate.tabulate(
             [
-                (
-                    profile["uuid"],
-                    profile["public_display_name"],
-                    profile["company"],
-                    profile["home_city"],
-                )
+                {k: v for k, v in profile.items() if not k.startswith("@")}
                 for profile in profiles
             ],
-            headers=(
-                "ID",
-                "Name",
-                "Company",
-                "Location",
-            ),
+            headers="keys",
         )
     )
 
@@ -164,15 +144,9 @@ def trips(
     click.echo(
         tabulate.tabulate(
             [
-                (
-                    trip["id"],
-                    trip["display_name"],
-                )
+                {k: v for k, v in trip.items() if not k.startswith("@")}
                 for trip in trips
             ],
-            headers=(
-                "ID",
-                "Name",
-            ),
+            headers="keys",
         )
     )
