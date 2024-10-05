@@ -71,3 +71,4 @@ version_files = [
     "src/illallangi/tripit/__version__.py:__version__",
 ]
 update_changelog_on_bump = true
+major_version_zero = true
