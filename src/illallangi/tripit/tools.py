@@ -57,6 +57,50 @@ def cli(
     is_flag=True,
     help="Output as JSON.",
 )
+def flights(
+    ctx,
+    json,
+):
+    flights = ctx.obj.get_flights()
+    if json:
+        click.echo(
+            orjson.dumps(
+                {
+                    "flights": list(flights),
+                },
+                option=orjson.OPT_SORT_KEYS,
+            ),
+        )
+        return
+
+    click.echo(
+        tabulate.tabulate(
+            [
+                (
+                    flight.get("start_airport_code"),
+                    flight.get("end_airport_code"),
+                    f'{flight["StartDateTime"]["date"]}T{flight["StartDateTime"]["time"]}{flight["StartDateTime"]["utc_offset"]}',
+                    f'{flight["EndDateTime"]["date"]}T{flight["EndDateTime"]["time"]}{flight["EndDateTime"]["utc_offset"]}',
+                )
+                for flight in flights
+            ],
+            headers=(
+                "Origin",
+                "Destination",
+                "Departure",
+                "Arrival",
+            ),
+        )
+    )
+
+
+@cli.command()
+@click.pass_context
+@click.option(
+    "--json",
+    is_flag=True,
+    help="Output as JSON.",
+)
 def profiles(
     ctx,
     json,

@@ -8,8 +8,9 @@ usage:
 	@echo "  clean       Remove all generated files"
 	@echo "  ruff        Run ruff format and check"
 	@echo "  build       Build the project"
-	@echo "  trips       Run tripit-tools trips"
+	@echo "  flights     Run tripit-tools flights"
 	@echo "  profiles    Run tripit-tools profiles"
+	@echo "  trips       Run tripit-tools trips"
 	@echo "  image       Build the container image"
 	@echo "  push        Push the container image to the registry"
 	@echo
@@ -44,6 +45,14 @@ help: sync
 version: sync
 	@uv run --quiet tripit-tools --version
 
+.PHONY: flights
+flights: sync
+	@uv run --quiet tripit-tools flights
+
+.PHONY: flights.json
+flights.json: sync
+	@uv run --quiet tripit-tools flights --json | jq > $@
+
 .PHONY: profiles
 profiles: sync
 	@uv run --quiet tripit-tools profiles
@@ -59,7 +68,6 @@ trips: sync
 .PHONY: trips.json
 trips.json: sync
 	@uv run --quiet tripit-tools trips --json | jq > $@
-
 
 # Docker image build and push
 
