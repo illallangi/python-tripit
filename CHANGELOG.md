@@ -1,3 +1,9 @@
+## v0.2.0 (2024-10-05)
+
+### Feat
+
+- **all**: added flights support
+
 ## v0.1.2 (2024-10-05)
 
 ### Fix
