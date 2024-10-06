@@ -5,23 +5,8 @@ Illallangi TripIt is a collection of command line tools to interact with TripIt.
 ## Requirements
 
 - Python >= 3.10.12
-- Docker (optional, for containerized usage)
 
 ## Installation
-
-### Using Docker
-
-1. Build the Docker image:
-
-    ```sh
-    make image
-    ```
-
-2. Run the Docker container:
-
-    ```sh
-    podman run -it --rm tripit
-    ```
 
 ### Using Python
 

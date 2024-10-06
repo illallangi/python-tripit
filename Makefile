@@ -1,5 +1,3 @@
-IMAGE_NAME=tripit
-
 .PHONY: usage
 usage:
 	@echo "Usage: make [target]"
@@ -11,17 +9,12 @@ usage:
 	@echo "  flights     Run tripit-tools flights"
 	@echo "  profiles    Run tripit-tools profiles"
 	@echo "  trips       Run tripit-tools trips"
-	@echo "  image       Build the container image"
-	@echo "  push        Push the container image to the registry"
 	@echo
 
 .PHONY: clean
 clean:
 	@git clean -Xdf
-	@if podman images -q $$DEV_REGISTRY/$(IMAGE_NAME) | grep -q .; then \
-		podman rmi -f $$(podman images -q $$DEV_REGISTRY/$(IMAGE_NAME)); \
-	fi
-
+4
 .PHONY: ruff
 ruff:
 	@uv run --quiet ruff format src
@@ -68,16 +61,6 @@ trips: sync
 .PHONY: trips.json
 trips.json: sync
 	@uv run --quiet tripit-tools trips --json | jq > $@
-
-# Docker image build and push
-
-.PHONY: image
-image: sync
-	@podman build -t $$DEV_REGISTRY/$(IMAGE_NAME):$$(uv run --quiet cz version -p | sed "s|\+.*||") --format=docker .
-
-.PHONY: push
-push: image
-	@podman push $$DEV_REGISTRY/$(IMAGE_NAME):$$(uv run --quiet cz version -p | sed "s|\+.*||")
 
 # PyPi package build and upload
 
