@@ -46,6 +46,15 @@ requires = [
     "hatchling>=1.25.0",
 ]
 build-backend = "hatchling.build"
+[tool.ruff]
+lint.select = ["ALL"]
+lint.ignore = [
+    "COM812",
+    "E501",
+    "ISC001",
+]
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
 [tool.uv]
 dev-dependencies = [
     "ruff>=0.6.9",

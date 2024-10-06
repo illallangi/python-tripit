@@ -1,8 +1,11 @@
-import tabulate
-import orjson
+"""This module provides command-line tools for interacting with the TripIt API."""
+
 import click
-from .client import TripItClient
+import orjson
+import tabulate
+
 from .__version__ import __version__
+from .client import TripItClient
 
 
 @click.group()
@@ -36,12 +39,25 @@ from .__version__ import __version__
     required=True,
 )
 def cli(
-    ctx,
-    tripit_access_token,
-    tripit_access_token_secret,
-    tripit_client_token,
-    tripit_client_token_secret,
-):
+    ctx: click.Context,
+    *,
+    tripit_access_token: str,
+    tripit_access_token_secret: str,
+    tripit_client_token: str,
+    tripit_client_token_secret: str,
+) -> None:
+    """
+    CLI command to initialize the TripItClient with the provided credentials.
+
+    Args:
+        ctx (click.Context): The Click context object.
+        tripit_access_token (str): The access token for TripIt API.
+        tripit_access_token_secret (str): The access token secret for TripIt API.
+        tripit_client_token (str): The client token for TripIt API.
+        tripit_client_token_secret (str): The client token secret for TripIt API.
+    Returns:
+        None
+    """
     ctx.obj = TripItClient(
         access_token=tripit_access_token,
         access_token_secret=tripit_access_token_secret,
@@ -58,9 +74,19 @@ def cli(
     help="Output as JSON.",
 )
 def flights(
-    ctx,
-    json,
-):
+    ctx: click.Context,
+    *,
+    json: bool,
+) -> None:
+    """
+    Retrieve and display flight information.
+
+    Parameters:
+    ctx (click.Context): The Click context object containing the application state.
+    json (bool): If True, output the flight information in JSON format. Otherwise, output in a tabulated format.
+    Returns:
+    None
+    """
     flights = ctx.obj.get_flights()
     if json:
         click.echo(
@@ -92,9 +118,19 @@ def flights(
     help="Output as JSON.",
 )
 def profiles(
-    ctx,
-    json,
-):
+    ctx: click.Context,
+    *,
+    json: bool,
+) -> None:
+    """
+    Retrieve and display profile information.
+
+    Parameters:
+    ctx (click.Context): The Click context object containing the application state.
+    json (bool): If True, output the profile information in JSON format. Otherwise, output in a tabulated format.
+    Returns:
+    None
+    """
     profiles = ctx.obj.get_profiles()
     if json:
         click.echo(
@@ -126,9 +162,19 @@ def profiles(
     help="Output as JSON.",
 )
 def trips(
-    ctx,
-    json,
-):
+    ctx: click.Context,
+    *,
+    json: bool,
+) -> None:
+    """
+    Retrieve and display trip information.
+
+    Parameters:
+    ctx (click.Context): The Click context object containing the application state.
+    json (bool): If True, output the trip information in JSON format. Otherwise, output in a tabulated format.
+    Returns:
+    None
+    """
     trips = ctx.obj.get_trips()
     if json:
         click.echo(
