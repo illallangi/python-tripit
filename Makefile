@@ -4,8 +4,12 @@ usage:
 	@echo
 	@echo "Targets:"
 	@echo "  clean       Remove all generated files"
-	@echo "  ruff        Run ruff format and check"
+	@echo "  lint        Run ruff format, check and uv sync"
+	@echo "  commit      Run cz commit"
 	@echo "  build       Build the project"
+	@echo
+	@echo "  help        Run tripit-tools help"
+	@echo "  version     Run tripit-tools version"
 	@echo "  flights     Run tripit-tools flights"
 	@echo "  profiles    Run tripit-tools profiles"
 	@echo "  trips       Run tripit-tools trips"
@@ -14,60 +18,50 @@ usage:
 .PHONY: clean
 clean:
 	@git clean -Xdf
-4
-.PHONY: ruff
-ruff:
+
+.PHONY: lint
+lint:
 	@uv run --quiet ruff format src
 	@uv run --quiet ruff check src
-
-.PHONY: sync
-sync: ruff
 	@uv sync --quiet
 
 .PHONY: commit
-commit: sync
+commit: lint
 	@uv run --quiet cz commit
 
-# Shortcuts to run the tripit-tools command
+.PHONY: build
+build: lint
+	@uv build
+
 
 .PHONY: help
-help: sync
+help: lint
 	@uv run --quiet tripit-tools --help
 
 .PHONY: version
-version: sync
+version: lint
 	@uv run --quiet tripit-tools --version
 
 .PHONY: flights
-flights: sync
+flights: lint
 	@uv run --quiet tripit-tools flights
 
 .PHONY: flights.json
-flights.json: sync
+flights.json: lint
 	@uv run --quiet tripit-tools flights --json | jq > $@
 
 .PHONY: profiles
-profiles: sync
+profiles: lint
 	@uv run --quiet tripit-tools profiles
 
 .PHONY: profiles.json
-profiles.json: sync
+profiles.json: lint
 	@uv run --quiet tripit-tools profiles --json | jq > $@
 
 .PHONY: trips
-trips: sync
+trips: lint
 	@uv run --quiet tripit-tools trips
 
 .PHONY: trips.json
-trips.json: sync
+trips.json: lint
 	@uv run --quiet tripit-tools trips --json | jq > $@
-
-# PyPi package build and upload
-
-.PHONY: build
-build: sync
-	@uv build
-
-.PHONY: test-upload
-test-upload: build
-	@UV_PUBLISH_URL=https://test.pypi.org/legacy/ uv publish
