@@ -228,7 +228,7 @@ wheels = [
 
 [[package]]
 name = "illallangi-tripit"
-version = "0.0.0"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "appdirs" },
@@ -267,7 +267,7 @@ requires-dist = [
 dev = [
     { name = "commitizen", specifier = ">=3.29.1" },
     { name = "hatchling", specifier = ">=1.25.0" },
-    { name = "pre-commit", specifier = ">=3.8.0" },
+    { name = "pre-commit", specifier = ">=4.0.0" },
     { name = "ruff", specifier = ">=0.6.9" },
 ]
 
