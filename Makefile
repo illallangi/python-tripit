@@ -19,7 +19,7 @@ usage:
 clean:
 	@git clean -Xdf
 	@rm -f .git/hooks/*.sample
-	@chmod +x .git/hooks/*
+	@find .git/hooks/ -type f  | while read i; do chmod +x $$i; done 
 
 .PHONY: lint
 lint:
