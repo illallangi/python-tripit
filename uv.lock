@@ -2,6 +2,28 @@ version = 1
 requires-python = ">=3.10.1"
 
 [[package]]
+name = "about-time"
+version = "4.2.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1c/3f/ccb16bdc53ebb81c1bf837c1ee4b5b0b69584fd2e4a802a2a79936691c0a/about-time-4.2.1.tar.gz", hash = "sha256:6a538862d33ce67d997429d14998310e1dbfda6cb7d9bbfbf799c4709847fece", size = 15380 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fb/cd/7ee00d6aa023b1d0551da0da5fee3bc23c3eeea632fbfc5126d1fec52b7e/about_time-4.2.1-py3-none-any.whl", hash = "sha256:8bbf4c75fe13cbd3d72f49a03b02c5c7dca32169b6d49117c257e7eb3eaee341", size = 13295 },
+]
+
+[[package]]
+name = "alive-progress"
+version = "3.1.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "about-time" },
+    { name = "grapheme" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6a/cf/de25c4f6123c3b3eb5acc87144d3e017df25b32c16806b14572a259939ac/alive-progress-3.1.5.tar.gz", hash = "sha256:42e399a66c8150dc507602dff7b7953f105ef11faf97ddaa6d27b1cbf45c4c98", size = 111891 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d5/81/91e164705bdf4e2774cea59f566a41ab25f3c87affd716516fc8b03a4039/alive_progress-3.1.5-py3-none-any.whl", hash = "sha256:347220c1858e3abe137fa0746895668c04df09c5261a13dc03f05795e8a29be5", size = 75965 },
+]
+
+[[package]]
 name = "appdirs"
 version = "1.4.4"
 source = { registry = "https://pypi.org/simple" }
@@ -193,6 +215,12 @@ wheels = [
 ]
 
 [[package]]
+name = "grapheme"
+version = "0.6.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ce/e7/bbaab0d2a33e07c8278910c1d0d8d4f3781293dfbc70b5c38197159046bf/grapheme-0.6.0.tar.gz", hash = "sha256:44c2b9f21bbe77cfb05835fec230bd435954275267fea1858013b102f8603cca", size = 207306 }
+
+[[package]]
 name = "hatchling"
 version = "1.25.0"
 source = { registry = "https://pypi.org/simple" }
@@ -231,6 +259,7 @@ name = "illallangi-tripit"
 version = "0.3.0"
 source = { editable = "." }
 dependencies = [
+    { name = "alive-progress" },
     { name = "appdirs" },
     { name = "click" },
     { name = "more-itertools" },
@@ -252,6 +281,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "alive-progress", specifier = ">=3.1.5" },
     { name = "appdirs", specifier = ">=1.4.4" },
     { name = "click", specifier = ">=8.1.7" },
     { name = "more-itertools", specifier = ">=10.5.0" },

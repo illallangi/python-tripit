@@ -29,6 +29,7 @@ from queue import Queue
 from typing import Any
 
 import more_itertools
+from alive_progress import alive_bar
 from appdirs import user_config_dir
 from dotenv import load_dotenv
 from requests_cache import CacheMixin
@@ -179,6 +180,14 @@ class TripItClient(
         seen = set()
 
         for arg in args:
+            seen.add(
+                arg
+                % {
+                    "format": "json",
+                    "page_size": 13,
+                    "page_num": 1,
+                }
+            )
             queue.put(
                 arg
                 % {
@@ -188,56 +197,55 @@ class TripItClient(
                 }
             )
 
-        while not queue.empty():
-            url = queue.get()
+        with alive_bar(manual=True) as bar:
+            while not queue.empty():
+                url = queue.get()
+                bar.text(f"{url.human_repr()}; {queue.qsize()} to go.")
 
-            if url in seen:
-                continue
+                response = self._session.get(url)
 
-            seen.add(url)
+                response.raise_for_status()
 
-            response = self._session.get(url)
+                json = response.json()
 
-            response.raise_for_status()
-
-            json = response.json()
-
-            yield from [
-                {
-                    **o,
-                    "@api": {
-                        **{
-                            k: try_float(v)
-                            for k, v in json.items()
-                            if k
-                            not in [
-                                "AirObject",
-                                "Profile",
-                                "Trip",
-                            ]
+                yield from [
+                    {
+                        **o,
+                        "@api": {
+                            **{
+                                k: try_float(v)
+                                for k, v in json.items()
+                                if k
+                                not in [
+                                    "AirObject",
+                                    "Profile",
+                                    "Trip",
+                                ]
+                            },
+                            "from_cache": response.from_cache,
+                            "expires": int(response.expires.timestamp()),
+                            "url": url.human_repr(),
+                            **self.get_info(),
                         },
-                        "from_cache": response.from_cache,
-                        "expires": int(response.expires.timestamp()),
-                        "url": url.human_repr(),
-                        **self.get_info(),
-                    },
-                }
-                for o in more_itertools.always_iterable(
-                    json.get(key, []),
-                    base_type=dict,
-                )
-            ]
+                    }
+                    for o in more_itertools.always_iterable(
+                        json.get(key, []),
+                        base_type=dict,
+                    )
+                ]
 
-            if "max_page" in json:
-                for page_num in range(
-                    1,
-                    int(json["max_page"]) + 1,
-                ):
-                    queue.put(
-                        url
-                        % {
+                if "max_page" in json:
+                    for page_num in range(
+                        1,
+                        int(json["max_page"]) + 1,
+                    ):
+                        u = url % {
                             "format": "json",
                             "page_size": 13,
                             "page_num": page_num,
                         }
-                    )
+                        if u in seen:
+                            continue
+                        seen.add(u)
+                        queue.put(u)
+                bar((len(seen) - queue.qsize()) / len(seen))
