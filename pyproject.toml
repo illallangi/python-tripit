@@ -13,6 +13,7 @@ dependencies = [
     "alive-progress>=3.1.5",
     "appdirs>=1.4.4",
     "click>=8.1.7",
+    "diffsync>=2.0.0",
     "more-itertools>=10.5.0",
     "orjson>=3.10.7",
     "python-dotenv>=1.0.1",
