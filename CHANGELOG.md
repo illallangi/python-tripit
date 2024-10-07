@@ -1,3 +1,9 @@
+## v0.4.1 (2024-10-07)
+
+### Fix
+
+- **diffsync**: updated datetime fields from str to datetime and added timezone
+
 ## v0.4.0 (2024-10-07)
 
 ### Feat
