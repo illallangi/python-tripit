@@ -1,3 +1,10 @@
+## v0.4.0 (2024-10-07)
+
+### Feat
+
+- **tripitadapter**: added adapter and status model
+- **tools**: added progress bar to api calls
+
 ## v0.3.0 (2024-10-05)
 
 ### Feat
