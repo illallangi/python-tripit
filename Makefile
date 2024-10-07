@@ -18,6 +18,7 @@ usage:
 .PHONY: clean
 clean:
 	@git clean -Xdf
+	@mkdir -p .git/hooks
 	@rm -f .git/hooks/*.sample
 	@find .git/hooks/ -type f  | while read i; do chmod +x $$i; done 
 
