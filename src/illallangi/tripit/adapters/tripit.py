@@ -41,7 +41,12 @@ class TripItAdapter(diffsync.Adapter):
             None
         """
         for obj in TripItClient().get_flights():
-            if not obj["Arrival"] or not obj["Departure"] or not obj["Destination"] or not obj["Origin"]:
+            if (
+                not obj["Arrival"]
+                or not obj["Departure"]
+                or not obj["Destination"]
+                or not obj["Origin"]
+            ):
                 continue
             self.add(
                 Flight(
