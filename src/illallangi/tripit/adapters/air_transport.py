@@ -1,4 +1,4 @@
-"""TripItAdapter is a custom adapter for syncing tripit data using the diffsync library."""
+"""AirTransportAdapter is a custom adapter for syncing tripit data using the diffsync library."""
 
 from typing import ClassVar
 
@@ -8,9 +8,9 @@ from illallangi.tripit import TripItClient
 from illallangi.tripit.models import Flight
 
 
-class TripItAdapter(diffsync.Adapter):
+class AirTransportAdapter(diffsync.Adapter):
     """
-    TripItAdapter is an adapter for syncing Flight objects from a TripIt model.
+    AirTransportAdapter is an adapter for syncing Flight objects from a TripIt model.
 
     Attributes:
         Flight (class): The Flight class to be used for creating Flight objects.
@@ -43,7 +43,9 @@ class TripItAdapter(diffsync.Adapter):
         for obj in TripItClient().get_flights():
             if (
                 not obj["Arrival"]
+                or not obj["ArrivalTimeZone"]
                 or not obj["Departure"]
+                or not obj["DepartureTimeZone"]
                 or not obj["Destination"]
                 or not obj["Origin"]
             ):
@@ -51,7 +53,9 @@ class TripItAdapter(diffsync.Adapter):
             self.add(
                 Flight(
                     arrival=obj["Arrival"],
+                    arrival_timezone=obj["ArrivalTimeZone"],
                     departure=obj["Departure"],
+                    departure_timezone=obj["DepartureTimeZone"],
                     destination=obj["Destination"],
                     origin=obj["Origin"],
                 ),

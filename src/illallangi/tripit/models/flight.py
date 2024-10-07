@@ -1,5 +1,7 @@
 """Flight is a DiffSyncModel that represents a flight record in a TripIt application."""
 
+from datetime import datetime
+
 import diffsync
 
 
@@ -42,12 +44,16 @@ class Flight(diffsync.DiffSyncModel):
         "origin",
     )
     _attributes = (
+        "arrival_timezone",
         "arrival",
+        "departure_timezone",
         "destination",
     )
 
-    arrival: str
-    departure: str
+    arrival_timezone: str
+    arrival: datetime
+    departure_timezone: str
+    departure: datetime
     destination: str
     origin: str
 

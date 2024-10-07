@@ -1,7 +1,7 @@
-"""This module provides the `TripItAdapter` class."""
+"""This module provides the `AirTransportAdapter` class."""
 
-from .tripit import TripItAdapter
+from .air_transport import AirTransportAdapter
 
 __all__ = [
-    "TripItAdapter",
+    "AirTransportAdapter",
 ]

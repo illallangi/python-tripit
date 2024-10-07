@@ -18,6 +18,7 @@ Methods:
 """
 
 from collections.abc import Generator
+from datetime import datetime, timezone
 from typing import Any
 
 import more_itertools
@@ -55,8 +56,14 @@ class FlightMixin:
             {
                 "Origin": segment.get("start_airport_code"),
                 "Destination": segment.get("end_airport_code"),
-                "Departure": f'{segment["StartDateTime"]["date"]}T{segment["StartDateTime"]["time"]}{segment["StartDateTime"]["utc_offset"]}',
-                "Arrival": f'{segment["EndDateTime"]["date"]}T{segment["EndDateTime"]["time"]}{segment["EndDateTime"]["utc_offset"]}',
+                "Departure": datetime.fromisoformat(
+                    f'{segment["StartDateTime"]["date"]}T{segment["StartDateTime"]["time"]}{segment["StartDateTime"]["utc_offset"]}',
+                ).astimezone(timezone.utc),
+                "DepartureTimeZone": segment["StartDateTime"]["timezone"],
+                "Arrival": datetime.fromisoformat(
+                    f'{segment["EndDateTime"]["date"]}T{segment["EndDateTime"]["time"]}{segment["EndDateTime"]["utc_offset"]}',
+                ).astimezone(timezone.utc),
+                "ArrivalTimeZone": segment["EndDateTime"]["timezone"],
                 "@air": {k: v for k, v in air.items() if k not in ["@api", "Segment"]},
                 "@api": air["@api"],
                 "@segment": segment,
