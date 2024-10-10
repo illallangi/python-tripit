@@ -1,3 +1,9 @@
+## v0.4.2 (2024-10-10)
+
+### Refactor
+
+- **diffsync**: moved models to diffsyncmodels
+
 ## v0.4.1 (2024-10-07)
 
 ### Fix
