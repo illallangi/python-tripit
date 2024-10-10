@@ -5,7 +5,7 @@ from typing import ClassVar
 import diffsync
 
 from illallangi.tripit import TripItClient
-from illallangi.tripit.models import Flight
+from illallangi.tripit.diffsyncmodels import Flight
 
 
 class AirTransportAdapter(diffsync.Adapter):
