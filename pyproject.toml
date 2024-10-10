@@ -81,5 +81,8 @@ version_files = [
     "pyproject.toml:version",
     "src/illallangi/tripit/__version__.py:__version__",
 ]
+pre_bump_hooks = [
+  "uv sync"
+]
 update_changelog_on_bump = true
 major_version_zero = true
