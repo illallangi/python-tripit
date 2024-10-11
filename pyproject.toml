@@ -67,8 +67,6 @@ dev-dependencies = [
 ]
 [tool.hatch.build.targets.sdist]
 exclude = [
-    ".dockerignore",
-    "Dockerfile",
     "Makefile",
     "uv.lock",
 ]
