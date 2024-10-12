@@ -7,21 +7,35 @@ class Flight(diffsync.DiffSyncModel):
     _modelname = "Flight"
     _identifiers = (
         "departure",
-        "origin",
+        "flight_number",
     )
     _attributes = (
-        "arrival_timezone",
+        "airline",
         "arrival",
+        "arrival_timezone",
         "departure_timezone",
         "destination",
+        "destination_city",
+        "destination_terminal",
+        "flight_class",
+        "origin",
+        "origin_city",
+        "origin_terminal",
     )
 
-    arrival_timezone: str
+    airline: str
     arrival: datetime
-    departure_timezone: str
+    arrival_timezone: str
     departure: datetime
+    departure_timezone: str
     destination: str
+    destination_city: str
+    destination_terminal: str | None
+    flight_class: str | None
+    flight_number: str
     origin: str
+    origin_city: str
+    origin_terminal: str | None
 
     @classmethod
     def create(

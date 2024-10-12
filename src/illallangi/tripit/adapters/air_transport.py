@@ -19,22 +19,20 @@ class AirTransportAdapter(diffsync.Adapter):
         self,
     ) -> None:
         for obj in TripItClient().get_flights():
-            if (
-                not obj["Arrival"]
-                or not obj["ArrivalTimeZone"]
-                or not obj["Departure"]
-                or not obj["DepartureTimeZone"]
-                or not obj["Destination"]
-                or not obj["Origin"]
-            ):
-                continue
             self.add(
                 Flight(
+                    airline=obj["Airline"],
                     arrival=obj["Arrival"],
                     arrival_timezone=obj["ArrivalTimeZone"],
                     departure=obj["Departure"],
                     departure_timezone=obj["DepartureTimeZone"],
                     destination=obj["Destination"],
+                    destination_city=obj["DestinationCity"],
+                    destination_terminal=obj["DestinationTerminal"],
+                    flight_class=obj["FlightClass"],
+                    flight_number=obj["FlightNumber"],
                     origin=obj["Origin"],
+                    origin_city=obj["OriginCity"],
+                    origin_terminal=obj["OriginTerminal"],
                 ),
             )
