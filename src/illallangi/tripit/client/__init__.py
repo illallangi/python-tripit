@@ -1,4 +1,5 @@
 import datetime
+import sys
 from collections.abc import Generator
 from os import environ
 from pathlib import Path
@@ -33,6 +34,7 @@ class Session(
     OAuth1Session,
 ):
     pass
+
 
 def try_float(
     value: str,
@@ -105,7 +107,10 @@ class TripItClient(
                 }
             )
 
-        with alive_bar(manual=True) as bar:
+        with alive_bar(
+            manual=True,
+            file=sys.stderr,
+        ) as bar:
             while not queue.empty():
                 url = queue.get()
                 bar.text(f"{url.human_repr()}; {queue.qsize()} to go.")
