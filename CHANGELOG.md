@@ -1,3 +1,14 @@
+## v0.5.0 (2024-10-12)
+
+### Feat
+
+- **flight**: added flight number and class, terminal information, and city name
+- **flight**: added support for jsonpatch in notes
+
+### Fix
+
+- **client**: progress bar to stderr
+
 ## v0.4.2 (2024-10-10)
 
 ### Refactor
