@@ -1,3 +1,18 @@
+## v0.6.0 (2024-10-20)
+
+### Feat
+
+- **flight**: added properties
+- **AirTransportAdapter**: added trips
+
+### Fix
+
+- **TripMixin**: added missing properties
+
+### Refactor
+
+- **all**: moved environment variable configuration out of client
+
 ## v0.5.0 (2024-10-12)
 
 ### Feat
