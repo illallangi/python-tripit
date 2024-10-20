@@ -16,11 +16,16 @@ class Flight(diffsync.DiffSyncModel):
         "departure_timezone",
         "destination",
         "destination_city",
+        "destination_gate",
         "destination_terminal",
         "flight_class",
         "origin",
         "origin_city",
+        "origin_gate",
         "origin_terminal",
+        "passenger",
+        "seat",
+        "sequence_number",
     )
 
     airline: str
@@ -30,12 +35,17 @@ class Flight(diffsync.DiffSyncModel):
     departure_timezone: str
     destination: str
     destination_city: str
-    destination_terminal: str | None
-    flight_class: str | None
+    destination_gate: str
+    destination_terminal: str
+    flight_class: str
     flight_number: str
     origin: str
     origin_city: str
-    origin_terminal: str | None
+    origin_gate: str
+    origin_terminal: str
+    passenger: str
+    seat: str
+    sequence_number: str
 
     @classmethod
     def create(

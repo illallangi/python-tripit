@@ -46,12 +46,17 @@ class AirTransportAdapter(diffsync.Adapter):
                     departure_timezone=obj["DepartureTimeZone"],
                     destination=obj["Destination"],
                     destination_city=obj["DestinationCity"],
+                    destination_gate=obj["DestinationGate"],
                     destination_terminal=obj["DestinationTerminal"],
                     flight_class=obj["FlightClass"],
                     flight_number=obj["FlightNumber"],
                     origin=obj["Origin"],
                     origin_city=obj["OriginCity"],
+                    origin_gate=obj["OriginGate"],
                     origin_terminal=obj["OriginTerminal"],
+                    passenger=obj["Passenger"],
+                    seat=obj["Seat"],
+                    sequence_number=obj["SequenceNumber"],
                 ),
             )
         for obj in self.client.get_trips(
