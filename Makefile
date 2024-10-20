@@ -24,8 +24,9 @@ clean:
 
 .PHONY: lint
 lint:
+	@uv run --quiet deptry src --experimental-namespace-package
 	@uv run --quiet ruff format src
-	@uv run --quiet ruff check src
+	@uv run --quiet ruff check src --quiet
 	@uv sync --quiet
 
 .PHONY: commit

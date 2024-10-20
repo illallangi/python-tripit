@@ -49,6 +49,8 @@ requires = [
     "hatchling>=1.25.0",
 ]
 build-backend = "hatchling.build"
+[tool.deptry.per_rule_ignores]
+DEP002 = []
 [tool.ruff]
 lint.select = ["ALL"]
 lint.ignore = [
@@ -61,10 +63,11 @@ lint.ignore = [
 convention = "pep257"
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.6.9",
-    "hatchling>=1.25.0",
     "commitizen>=3.29.1",
+    "deptry>=0.20.0",
+    "hatchling>=1.25.0",
     "pre-commit>=4.0.0",
+    "ruff>=0.6.9",
 ]
 [tool.hatch.build.targets.sdist]
 exclude = [
