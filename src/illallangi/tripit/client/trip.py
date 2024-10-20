@@ -10,6 +10,8 @@ class TripMixin:
             {
                 "ID": trip["id"],
                 "Name": trip["display_name"],
+                "Start": trip["start_date"],
+                "End": trip["end_date"],
                 "@api": trip["@api"],
                 "@trip": {k: v for k, v in trip.items() if k not in ["@api"]},
             }
