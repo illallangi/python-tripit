@@ -7,6 +7,17 @@ from illallangi.tripit.diffsyncmodels import Flight, Trip
 
 
 class AirTransportAdapter(diffsync.Adapter):
+    def __init__(
+        self,
+        *args: list,
+        **kwargs: dict,
+    ) -> None:
+        super().__init__()
+        self.client = TripItClient(
+            *args,
+            **kwargs,
+        )
+
     Flight = Flight
     Trip = Trip
 
@@ -15,12 +26,17 @@ class AirTransportAdapter(diffsync.Adapter):
         "Trip",
     ]
 
-    type = "tripit_tripit"
+    type = "tripit_air_transport"
 
     def load(
         self,
+        *args: list,
+        **kwargs: dict,
     ) -> None:
-        for obj in TripItClient().get_flights():
+        for obj in self.client.get_flights(
+            *args,
+            **kwargs,
+        ):
             self.add(
                 Flight(
                     airline=obj["Airline"],
@@ -38,7 +54,10 @@ class AirTransportAdapter(diffsync.Adapter):
                     origin_terminal=obj["OriginTerminal"],
                 ),
             )
-        for obj in self.client.get_trips():
+        for obj in self.client.get_trips(
+            *args,
+            **kwargs,
+        ):
             self.add(
                 Trip(
                     end=obj["End"],

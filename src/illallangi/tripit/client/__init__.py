@@ -1,7 +1,6 @@
 import datetime
 import sys
 from collections.abc import Generator
-from os import environ
 from pathlib import Path
 from queue import Queue
 from typing import Any
@@ -9,7 +8,6 @@ from typing import Any
 import more_itertools
 from alive_progress import alive_bar
 from appdirs import user_config_dir
-from dotenv import load_dotenv
 from requests_cache import CacheMixin
 from requests_oauthlib import OAuth1Session
 from yarl import URL
@@ -18,13 +16,6 @@ from illallangi.tripit.__version__ import __version__
 from illallangi.tripit.client.flight import FlightMixin
 from illallangi.tripit.client.profile import ProfileMixin
 from illallangi.tripit.client.trip import TripMixin
-
-load_dotenv(override=True)
-
-ACCESS_TOKEN = environ.get("TRIPIT_ACCESS_TOKEN", None)
-ACCESS_TOKEN_SECRET = environ.get("TRIPIT_ACCESS_TOKEN_SECRET", None)
-CLIENT_TOKEN = environ.get("TRIPIT_CLIENT_TOKEN", None)
-CLIENT_TOKEN_SECRET = environ.get("TRIPIT_CLIENT_TOKEN_SECRET", None)
 
 CACHE_NAME = Path(user_config_dir()) / "illallangi-tripit.db"
 
@@ -52,10 +43,10 @@ class TripItClient(
 ):
     def __init__(
         self,
-        access_token: str = ACCESS_TOKEN,
-        access_token_secret: str = ACCESS_TOKEN_SECRET,
-        client_token: str = CLIENT_TOKEN,
-        client_token_secret: str = CLIENT_TOKEN_SECRET,
+        tripit_access_token: str,
+        tripit_access_token_secret: str,
+        tripit_client_token: str,
+        tripit_client_token_secret: str,
         base_url: URL = "https://api.tripit.com/v1",
     ) -> None:
         if not isinstance(base_url, URL):
@@ -64,10 +55,10 @@ class TripItClient(
         self.base_url = base_url
 
         self._session = Session(
-            client_key=client_token,
-            client_secret=client_token_secret,
-            resource_owner_key=access_token,
-            resource_owner_secret=access_token_secret,
+            client_key=tripit_client_token,
+            client_secret=tripit_client_token_secret,
+            resource_owner_key=tripit_access_token,
+            resource_owner_secret=tripit_access_token_secret,
             cache_name=CACHE_NAME,
             backend="sqlite",
             expire_after=3600,
