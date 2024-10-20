@@ -9,6 +9,10 @@ wheels/
 # Virtual environments
 .venv
 
+# Configuration
+.env
+
+# JSON outputs
 flights.json
 profiles.json
 trips.json
