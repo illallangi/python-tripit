@@ -3,7 +3,7 @@ from typing import ClassVar
 import diffsync
 
 from illallangi.tripit import TripItClient
-from illallangi.tripit.diffsyncmodels import Flight
+from illallangi.tripit.diffsyncmodels import Flight, Trip
 
 
 class AirTransportAdapter(diffsync.Adapter):

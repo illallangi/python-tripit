@@ -2,8 +2,8 @@ import click
 import orjson
 import tabulate
 
-from .__version__ import __version__
-from .client import TripItClient
+from illallangi.tripit.__version__ import __version__
+from illallangi.tripit.client import TripItClient
 
 
 @click.group()
