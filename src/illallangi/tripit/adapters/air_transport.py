@@ -8,9 +8,11 @@ from illallangi.tripit.diffsyncmodels import Flight
 
 class AirTransportAdapter(diffsync.Adapter):
     Flight = Flight
+    Trip = Trip
 
     top_level: ClassVar = [
         "Flight",
+        "Trip",
     ]
 
     type = "tripit_tripit"
@@ -34,5 +36,13 @@ class AirTransportAdapter(diffsync.Adapter):
                     origin=obj["Origin"],
                     origin_city=obj["OriginCity"],
                     origin_terminal=obj["OriginTerminal"],
+                ),
+            )
+        for obj in self.client.get_trips():
+            self.add(
+                Trip(
+                    end=obj["End"],
+                    name=obj["Name"],
+                    start=obj["Start"],
                 ),
             )
