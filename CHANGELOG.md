@@ -1,3 +1,10 @@
+## v0.7.0 (2024-10-25)
+
+### Feat
+
+- **trip**: Added Open Location Code
+- **all**: Implemented attrs and cattrs
+
 ## v0.6.0 (2024-10-20)
 
 ### Feat

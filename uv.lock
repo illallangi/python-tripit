@@ -324,7 +324,7 @@ wheels = [
 
 [[package]]
 name = "illallangi-tripit"
-version = "0.6.0"
+version = "0.7.0"
 source = { editable = "." }
 dependencies = [
     { name = "alive-progress" },
@@ -335,6 +335,7 @@ dependencies = [
     { name = "diffsync" },
     { name = "jsonpatch" },
     { name = "more-itertools" },
+    { name = "openlocationcode" },
     { name = "orjson" },
     { name = "python-dotenv" },
     { name = "requests-cache" },
@@ -362,6 +363,7 @@ requires-dist = [
     { name = "diffsync", specifier = ">=2.0.0" },
     { name = "jsonpatch", specifier = ">=1.33" },
     { name = "more-itertools", specifier = ">=10.5.0" },
+    { name = "openlocationcode", specifier = ">=1.0.1" },
     { name = "orjson", specifier = ">=3.10.7" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "requests-cache", specifier = ">=1.2.1" },
@@ -568,6 +570,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/6d/fa/fbf40010379040316
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7e/80/cab10959dc1faead58dc8384a781dfbf93cb4d33d50988f7a69f1b7c9bbe/oauthlib-3.2.2-py3-none-any.whl", hash = "sha256:8139f29aac13e25d502680e9e19963e83f16838d48a0d71c287fe40e7067fbca", size = 151688 },
 ]
+
+[[package]]
+name = "openlocationcode"
+version = "1.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/50/e8/9fc58ee30f4f7b1befe190005c3d0d50b472df4bb968dcae1db7fbbf0e2a/openlocationcode-1.0.1.tar.gz", hash = "sha256:6fc0108a8214b65d74964105bd69645a8a7529237f0de6aadcfa83cc3373b359", size = 7767 }
 
 [[package]]
 name = "orjson"
