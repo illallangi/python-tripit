@@ -76,6 +76,7 @@ class TripItClient(
         self,
         key: str,
         *args: URL,
+        progress: bool = True,
     ) -> Generator[dict[str, Any], None, None]:
         queue = Queue()
         seen = set()
@@ -101,6 +102,7 @@ class TripItClient(
         with alive_bar(
             manual=True,
             file=sys.stderr,
+            disable=not progress,
         ) as bar:
             while not queue.empty():
                 url = queue.get()

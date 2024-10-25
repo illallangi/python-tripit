@@ -1,9 +1,37 @@
 from typing import ClassVar
 
 import diffsync
+from cattrs import global_converter, structure, unstructure
 
 from illallangi.tripit import TripItClient
 from illallangi.tripit.diffsyncmodels import Flight, Trip
+
+
+@global_converter.register_structure_hook
+def trip_structure_hook(
+    value: dict,
+    type: type,  # noqa: A002, ARG001
+) -> Trip:
+    return Trip(
+        **value,
+    )
+
+
+@global_converter.register_structure_hook
+def flight_structure_hook(
+    value: dict,
+    type: type,  # noqa: A002, ARG001
+) -> Flight:
+    return Flight(
+        airline__iata=str(value.pop("airline")["iata"]),
+        arrival_timezone=str(value.pop("arrival_timezone")),
+        departure_timezone=str(value.pop("departure_timezone")),
+        destination__iata=str(value.pop("destination")["iata"]),
+        origin__iata=str(value.pop("origin")["iata"]),
+        trip__name=value["trip"]["name"],
+        trip__start=value.pop("trip")["start"],
+        **value,
+    )
 
 
 class AirTransportAdapter(diffsync.Adapter):
@@ -33,40 +61,32 @@ class AirTransportAdapter(diffsync.Adapter):
         *args: list,
         **kwargs: dict,
     ) -> None:
-        for obj in self.client.get_flights(
-            *args,
-            **kwargs,
-        ):
-            self.add(
-                Flight(
-                    airline=obj["Airline"],
-                    arrival=obj["Arrival"],
-                    arrival_timezone=obj["ArrivalTimeZone"],
-                    departure=obj["Departure"],
-                    departure_timezone=obj["DepartureTimeZone"],
-                    destination=obj["Destination"],
-                    destination_city=obj["DestinationCity"],
-                    destination_gate=obj["DestinationGate"],
-                    destination_terminal=obj["DestinationTerminal"],
-                    flight_class=obj["FlightClass"],
-                    flight_number=obj["FlightNumber"],
-                    origin=obj["Origin"],
-                    origin_city=obj["OriginCity"],
-                    origin_gate=obj["OriginGate"],
-                    origin_terminal=obj["OriginTerminal"],
-                    passenger=obj["Passenger"],
-                    seat=obj["Seat"],
-                    sequence_number=obj["SequenceNumber"],
-                ),
-            )
         for obj in self.client.get_trips(
             *args,
             **kwargs,
         ):
+            d = unstructure(
+                obj,
+            )
+            o = structure(
+                d,
+                Trip,
+            )
             self.add(
-                Trip(
-                    end=obj["End"],
-                    name=obj["Name"],
-                    start=obj["Start"],
-                ),
+                o,
+            )
+
+        for obj in self.client.get_flights(
+            *args,
+            **kwargs,
+        ):
+            d = unstructure(
+                obj,
+            )
+            o = structure(
+                d,
+                Flight,
+            )
+            self.add(
+                o,
             )

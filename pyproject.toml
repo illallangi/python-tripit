@@ -12,6 +12,8 @@ requires-python = ">=3.10.1"
 dependencies = [
     "alive-progress>=3.1.5",
     "appdirs>=1.4.4",
+    "attrs>=24.2.0",
+    "cattrs>=24.1.2",
     "click>=8.1.7",
     "diffsync>=2.0.0",
     "jsonpatch>=1.33",

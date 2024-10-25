@@ -1,6 +1,10 @@
+from typing import Any
+from zoneinfo import ZoneInfo
+
 import click
 import orjson
 import tabulate
+from cattrs import unstructure
 from dotenv import load_dotenv
 
 from illallangi.tripit.__version__ import __version__
@@ -15,6 +19,13 @@ json_output_format_option = click.option(
     "output_format",
     flag_value="json",
     help="Output as JSON.",
+)
+
+json_api_output_format_option = click.option(
+    "--json-api",
+    "output_format",
+    flag_value="json-api",
+    help="Output as JSON with extended API data.",
 )
 
 table_output_format_option = click.option(
@@ -80,6 +91,7 @@ def cli(
 @cli.command()
 @click.pass_context
 @json_output_format_option
+@json_api_output_format_option
 @table_output_format_option
 def flights(
     ctx: click.Context,
@@ -96,6 +108,7 @@ def flights(
 @cli.command()
 @click.pass_context
 @json_output_format_option
+@json_api_output_format_option
 @table_output_format_option
 def profiles(
     ctx: click.Context,
@@ -112,6 +125,7 @@ def profiles(
 @cli.command()
 @click.pass_context
 @json_output_format_option
+@json_api_output_format_option
 @table_output_format_option
 def trips(
     ctx: click.Context,
@@ -133,6 +147,7 @@ def output(
 ) -> None:
     objs = fn(
         *args,
+        debug=output_format == "json-api",
         **kwargs,
     )
 
@@ -140,28 +155,34 @@ def output(
         return
 
     # JSON output
-    if output_format == "json":
+    if output_format in [
+        "json",
+        "json-api",
+    ]:
+
+        def default(
+            obj: Any,  # noqa: ANN401
+        ) -> str:
+            if isinstance(obj, ZoneInfo):
+                return str(obj)
+            raise TypeError
+
         click.echo(
             orjson.dumps(
-                [
-                    {
-                        **obj,
-                    }
-                    for obj in objs
-                ],
+                [{k: v for k, v in unstructure(obj).items() if v} for obj in objs],
                 option=orjson.OPT_SORT_KEYS,
+                default=default,
             ),
         )
         return
 
     # Table output
-    if output_format == "table":
+    if output_format in [
+        "table",
+    ]:
         click.echo(
             tabulate.tabulate(
-                [
-                    {k: v for k, v in obj.items() if not k.startswith("@")}
-                    for obj in objs
-                ],
+                [{k: v for k, v in unstructure(obj).items() if v} for obj in objs],
                 headers="keys",
                 tablefmt="presto",
                 numalign="left",

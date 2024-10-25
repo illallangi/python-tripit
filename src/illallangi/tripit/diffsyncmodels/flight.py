@@ -1,51 +1,58 @@
-from datetime import datetime
+from datetime import date, datetime
 
 import diffsync
 
 
-class Flight(diffsync.DiffSyncModel):
+class Flight(
+    diffsync.DiffSyncModel,
+):
     _modelname = "Flight"
     _identifiers = (
         "departure",
         "flight_number",
     )
     _attributes = (
-        "airline",
-        "arrival",
+        "airline__iata",
         "arrival_timezone",
+        "arrival",
         "departure_timezone",
-        "destination",
+        "destination__iata",
         "destination_city",
         "destination_gate",
         "destination_terminal",
         "flight_class",
-        "origin",
+        "origin__iata",
         "origin_city",
         "origin_gate",
         "origin_terminal",
         "passenger",
         "seat",
         "sequence_number",
+        "trip__name",
+        "trip__start",
     )
 
-    airline: str
-    arrival: datetime
-    arrival_timezone: str
     departure: datetime
-    departure_timezone: str
-    destination: str
-    destination_city: str
-    destination_gate: str
-    destination_terminal: str
-    flight_class: str
     flight_number: str
-    origin: str
+
+    airline__iata: str
+    arrival_timezone: str
+    arrival: datetime
+    departure_timezone: str
+    destination__iata: str
+    destination_city: str
+    destination_gate: str | None
+    destination_terminal: str | None
+    flight_class: str | None
+    origin__iata: str
     origin_city: str
-    origin_gate: str
-    origin_terminal: str
-    passenger: str
-    seat: str
+    origin_gate: str | None
+    origin_terminal: str | None
+    passenger: str | None
+    seat: str | None
     sequence_number: str
+    trip__name: str
+    trip__start: date
 
     @classmethod
     def create(
