@@ -3,6 +3,7 @@ from datetime import date
 from typing import Any
 
 from more_itertools import first
+from openlocationcode import openlocationcode as olc
 
 from illallangi.tripit.models import Trip
 
@@ -29,6 +30,13 @@ def get_name(
     return trip["display_name"]
 
 
+def get_open_location_code(
+    trip: dict[str, Any],
+) -> str:
+    return olc.encode(
+        float(trip["PrimaryLocationAddress"]["latitude"]),
+        float(trip["PrimaryLocationAddress"]["longitude"]),
+    )
 
 
 class TripMixin:
@@ -74,6 +82,7 @@ class TripMixin:
                     start=get_start(trip),
                     name=get_name(trip),
                     end=get_end(trip),
+                    open_location_code=get_open_location_code(trip),
                     **(
                         {
                             "api": trip["@api"],

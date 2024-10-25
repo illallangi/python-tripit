@@ -30,6 +30,15 @@ class Trip(TripKey):
         ],
     )
 
+    open_location_code: str = field(
+        validator=[
+            validators.instance_of(str),
+            validators.matches_re(
+                r"^[23456789CFGHJMPQRVWX]{8}\+[23456789CFGHJMPQRVWX]{2,}$"
+            ),
+        ],
+    )
+
     # API Responses
 
     _api: dict[str, Any] | None = field(
