@@ -1,3 +1,9 @@
+## v0.8.0 (2024-10-28)
+
+### Feat
+
+- **airline-airport**: moved to illallangi-rdf
+
 ## v0.7.0 (2024-10-25)
 
 ### Feat

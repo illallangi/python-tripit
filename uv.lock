@@ -384,7 +384,7 @@ wheels = [
 
 [[package]]
 name = "illallangi-tripit"
-version = "0.7.0"
+version = "0.8.0"
 source = { editable = "." }
 dependencies = [
     { name = "alive-progress" },
@@ -405,7 +405,7 @@ dependencies = [
     { name = "yarl" },
 ]
 
-[package.dev-dependencies]
+[package.dependency-groups]
 dev = [
     { name = "commitizen" },
     { name = "deptry" },
@@ -434,7 +434,7 @@ requires-dist = [
     { name = "yarl", specifier = ">=1.13.1" },
 ]
 
-[package.metadata.requires-dev]
+[package.metadata.dependency-groups]
 dev = [
     { name = "commitizen", specifier = ">=3.29.1" },
     { name = "deptry", specifier = ">=0.20.0" },
