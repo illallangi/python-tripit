@@ -16,6 +16,7 @@ dependencies = [
     "cattrs>=24.1.2",
     "click>=8.1.7",
     "diffsync>=2.0.0",
+    "illallangi-rdf>=0.4.0",
     "jsonpatch>=1.33",
     "more-itertools>=10.5.0",
     "openlocationcode>=1.0.1",

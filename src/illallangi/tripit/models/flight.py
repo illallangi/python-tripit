@@ -4,8 +4,8 @@ from zoneinfo import ZoneInfo
 
 from attrs import define, field, validators
 
-from illallangi.tripit.models.airline import AirlineKey
-from illallangi.tripit.models.airport import AirportKey
+from illallangi.rdf.models.airline import AirlineKey
+from illallangi.rdf.models.airport import AirportKey
 from illallangi.tripit.models.trip import TripKey
 
 
@@ -36,82 +36,98 @@ class Flight(FlightKey):
             validators.instance_of(AirlineKey),
         ],
     )
+
     arrival_timezone: ZoneInfo = field(
         validator=[
             validators.instance_of(ZoneInfo),
         ],
     )
+
     arrival: datetime = field(
         validator=[
             validators.instance_of(datetime),
         ],
     )
+
     departure_timezone: ZoneInfo = field(
         validator=[
             validators.instance_of(ZoneInfo),
         ],
     )
-    destination_city: str = field(
-        validator=[
-            validators.instance_of(str),
-        ],
-    )
-    destination_gate: str | None = field(
-        validator=[
-            validators.instance_of(str | None),
-        ],
-    )
-    destination_terminal: str | None = field(
-        validator=[
-            validators.instance_of(str | None),
-        ],
-    )
+
     destination: AirportKey = field(
         validator=[
             validators.instance_of(AirportKey),
         ],
     )
+
+    destination_city: str = field(
+        validator=[
+            validators.instance_of(str),
+        ],
+    )
+
+    destination_gate: str | None = field(
+        validator=[
+            validators.instance_of(str | None),
+        ],
+    )
+
+    destination_terminal: str | None = field(
+        validator=[
+            validators.instance_of(str | None),
+        ],
+    )
+
     flight_class: str | None = field(
         validator=[
             validators.instance_of(str | None),
         ],
     )
-    origin_city: str = field(
-        validator=[
-            validators.instance_of(str),
-        ],
-    )
-    origin_gate: str | None = field(
-        validator=[
-            validators.instance_of(str | None),
-        ],
-    )
-    origin_terminal: str | None = field(
-        validator=[
-            validators.instance_of(str | None),
-        ],
-    )
+
     origin: AirportKey = field(
         validator=[
             validators.instance_of(AirportKey),
         ],
     )
+
+    origin_city: str = field(
+        validator=[
+            validators.instance_of(str),
+        ],
+    )
+
+    origin_gate: str | None = field(
+        validator=[
+            validators.instance_of(str | None),
+        ],
+    )
+
+    origin_terminal: str | None = field(
+        validator=[
+            validators.instance_of(str | None),
+        ],
+    )
+
     passenger: str | None = field(
         validator=[
             validators.instance_of(str | None),
         ],
     )
+
     seat: str | None = field(
         validator=[
             validators.instance_of(str | None),
             # validators.matches_re(r"^[0-9]{2}[A-Z]$"),
         ],
     )
+
     sequence_number: str = field(
         validator=[
             validators.instance_of(str),
         ],
     )
+
     trip: TripKey | None = field(
         validator=[
             validators.instance_of(TripKey | None),

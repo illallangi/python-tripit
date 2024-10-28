@@ -5,7 +5,8 @@ from zoneinfo import ZoneInfo
 
 import more_itertools
 
-from illallangi.tripit.models import AirlineKey, AirportKey, Flight
+from illallangi.rdf.models import AirlineKey, AirportKey
+from illallangi.tripit.models import Flight
 from illallangi.tripit.utils import try_jsonpatch
 
 UNKNOWN = None
