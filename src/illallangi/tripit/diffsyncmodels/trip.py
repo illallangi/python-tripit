@@ -3,17 +3,24 @@ from datetime import datetime
 import diffsync
 
 
-class Trip(diffsync.DiffSyncModel):
+class Trip(
+    diffsync.DiffSyncModel,
+):
     _modelname = "Trip"
     _identifiers = (
-        "start",
         "name",
+        "start",
     )
-    _attributes = ("end",)
+    _attributes = (
+        "end",
+        "open_location_code",
+    )
 
-    end: datetime
     name: str
     start: datetime
+
+    end: datetime
+    open_location_code: str
 
     @classmethod
     def create(

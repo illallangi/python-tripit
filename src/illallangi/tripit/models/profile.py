@@ -38,6 +38,7 @@ class Profile(ProfileKey):
             validators.instance_of(dict | None),
         ],
     )
+
     _profile: dict[str, Any] | None = field(
         default=None,
         validator=[

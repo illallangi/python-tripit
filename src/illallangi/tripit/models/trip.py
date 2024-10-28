@@ -8,14 +8,15 @@ from attrs import define, field, validators
 class TripKey:
     # Natural Keys
 
-    start: date = field(
-        validator=[
-            validators.instance_of(date),
-        ],
-    )
     name: str = field(
         validator=[
             validators.instance_of(str),
+        ],
+    )
+
+    start: date = field(
+        validator=[
+            validators.instance_of(date),
         ],
     )
 
